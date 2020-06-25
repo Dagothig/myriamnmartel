@@ -6,7 +6,7 @@ block nav
 block content
     .grid
         each item in listings
-            +link(href=item.url)(class="listing")
+            +link(href=item.url, class="listing")
                 .img-container
                     img(
                         loading="lazy"

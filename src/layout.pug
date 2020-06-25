@@ -8,13 +8,13 @@ mixin space()
 mixin nav(nav, current)
     a(
         class=nav === current ? 'active' : undefined
-        href= `${language !== 'en' ? '/' + language : ''}/${nav !== 'index' ? nav : ''}`
+        href=`${language !== 'en' ? '/' + language : ''}/${nav !== 'index' ? nav : ''}`
     ): +t(nav)
 
 mixin lang(lang, current)
     a(
         class=lang === current ? 'active' : undefined
-        href= `/${lang}`
+        href=`/${lang}`
     ): +t(lang)
 
 mixin link(href)
