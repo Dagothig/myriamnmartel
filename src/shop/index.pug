@@ -1,0 +1,19 @@
+extends /layout.pug
+
+block nav
+    - const current = "shop"
+
+block content
+    .grid
+        each item in listings
+            +link(href=item.url)(class="listing")
+                .img-container
+                    img(
+                        loading="lazy"
+                        src=item.image.url)
+                h3
+                    =item.title
+                span.prompt
+                    +t('buy')
+                span.right
+                    =currency === 'CAD' ? `${item.price} CA$` : `${item.price} ${item.currency}`

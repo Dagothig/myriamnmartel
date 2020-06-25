@@ -1,0 +1,63 @@
+mixin t(key)
+    - const fixed = { en: 'English', fr: 'Français' };
+    =translations[key] || fixed[key] || `t:${key}`
+
+mixin space()
+  | !{' '}
+
+mixin nav(nav, current)
+    a(
+        class=nav === current ? 'active' : undefined
+        href= `${language !== 'en' ? '/' + language : ''}/${nav !== 'index' ? nav : ''}`
+    ): +t(nav)
+
+mixin lang(lang, current)
+    a(
+        class=lang === current ? 'active' : undefined
+        href= `/${lang}`
+    ): +t(lang)
+
+mixin link(href)
+    a(href=href, target="_blank", rel="noopener noreferrer")&attributes(attributes)
+        block
+
+doctype html
+html#top(lang="en")
+    head
+        title Catiniata
+        meta(http-equiv="Content-Type" content="text/html;charset=UTF-8")
+        meta(name="charset" content="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+
+        link(rel="prerender" as="style" href="/style.css")
+
+        link(rel="stylesheet" href="/style.css")
+        link(rel="icon" href="/favicon.ico")
+
+        block head
+
+    body
+        h1 Catiniata
+            p: +t("title")
+        nav
+            block nav
+            +nav("index", current)
+            +nav("shop", current)
+            each other in languages.filter(other => other !== language)
+                a(href=`${other !== 'en' ? '/' + other : ''}/${current !== 'index' ? current : ''}`)
+                    +t(other)
+        block content
+        footer
+            |© 2020 Myriam Noël-Martel
+            br
+            br
+            +link("https://www.etsy.com/ca-fr/shop/Catiniata")
+                img.brand(src="/svg/etsy-brands.svg")
+            +link("https://www.instagram.com/catiniata")
+                img.brand(src="/svg/instagram-brands.svg")
+            +link("https://www.facebook.com/catiniata")
+                img.brand(src="/svg/facebook-f-brands.svg")
+            br
+            br
+            | Caret gauche, droit, X et icônes de branding courtoisie de
+            +link("https://fontawesome.com/")|fontawesome

@@ -1,0 +1,33 @@
+extends /layout.pug
+
+block head
+    script.
+        const actionFor = action => () => {
+            if (!window.location.hash) return;
+            const control = document.querySelector(window.location.hash + ' .control.' + action);
+            control && (window.location = control.href);
+        };
+        const actions = {
+            Escape: actionFor('close'),
+            ArrowLeft: actionFor('left'),
+            ArrowRight: actionFor('right')
+        };
+        document.addEventListener('keydown', e => actions[e.key] && actions[e.key]());
+
+block nav
+    - const current = "index"
+
+block content
+    - const imgNames = imgs.map(img => img.split('.')[0])
+    .grid
+        each img, i in imgs
+            a.img-container(href=`#img-${imgNames[i]}`)
+                img(src=`/img-thumbs/${img}`, loading="lazy")
+    .lightbox
+        each img, i in imgs
+            .item(id=`img-${imgNames[i]}`)
+                img(src=`/img/${img}`, loading="lazy")
+                h2=imgNames[i]
+                a.control.left(href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`): span
+                a.control.right(href=`#img-${imgNames[(i + 1) % imgs.length]}`): span
+                a.control.close(href="#"): span

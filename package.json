@@ -1,0 +1,15 @@
+{
+  "name": "myriamnmartel",
+  "version": "1.0.0",
+  "description": "Site personnel de Catiniata",
+  "main": "index.js",
+  "author": "Dagothig <guillaumenoelmartel@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "browser-sync": "^2.26.7",
+    "dotenv": "^8.2.0",
+    "node-sass": "^4.14.1",
+    "pug-cli": "^1.0.0-alpha6"
+  }
+}
