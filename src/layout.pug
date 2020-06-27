@@ -37,7 +37,8 @@ html#top(lang="en")
         block head
 
     body
-        h1 Catiniata
+        h1
+            a(href=`/${language !== 'en' ? language : ''}`) Catiniata
             p: +t("title")
         nav
             block nav
