@@ -8,7 +8,7 @@ node:
 	@yarn
 
 .PHONY: data
-data: node
+data: node img
 	@node fetcher
 
 .PHONY: html
@@ -22,13 +22,18 @@ css: node
 
 images = $(wildcard public/img/*.png public/img/*.jpg)
 thumbs = $(subst img,img-thumbs, $(images:.png=.jpg))
+details = $(subst img,img-details, $(images:.png=.jpg))
 
 .PHONY: img
-img: $(thumbs)
+img: $(thumbs) $(details)
 
 public/img-thumbs/%.jpg: public/img/%.*
 	@mkdir -p public/img-thumbs
 	convert -quality 70 -resize 570 $< $@
+
+public/img-details/%.jpg: public/img/%.*
+	@mkdir -p public/img-details
+	convert -quality 85 -resize 2000 $< $@
 
 .PHONY: serve
 serve: build

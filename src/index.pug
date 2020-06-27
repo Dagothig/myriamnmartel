@@ -27,7 +27,8 @@ block content
     .lightbox
         each img, i in imgs
             .item(id=`img-${imgNames[i]}`)
-                img(src=`/img/${img}`, loading="lazy")
+                - const detail = img.split('.')[0] + '.jpg';
+                img(src=`/img-details/${detail}`, loading="lazy")
                 h2=imgNames[i].replace(/_/g, ' ')
                 a.control.left(href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`): span
                 a.control.right(href=`#img-${imgNames[(i + 1) % imgs.length]}`): span
