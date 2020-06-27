@@ -9,7 +9,7 @@ const formatOptions = options =>
 const get = (path, options = {}) =>
     axios.get(`${ base_url }/${ path }?${ formatOptions({ ...options, api_key }) }`);
 
-const getListings = async (language) =>
+const getListings = async language =>
     (await get(`shops/${ shop }/listings/active`, { limit: 1000, includes: 'MainImage', language }))
     .data.results
     .sort((lhs, rhs) => (rhs.shop_section_id - lhs.shop_section_id) || (rhs.creation_tsz - lhs.creation_tsz))
@@ -30,16 +30,27 @@ const writeObjToFile = (file, obj) =>
         fs.writeFile(file, JSON.stringify(obj), err =>
             err ? reject(err) : resolve()));
 
+const getImgs = async dir =>
+    (await Promise.all(
+        (await fs.promises.readdir(dir))
+        .map(async img => ({
+            name: img,
+            stats: await fs.promises.stat(`${dir}/${img}`)
+        }))))
+    .sort((lhs, rhs) => rhs.stats.ctimeMs - lhs.stats.ctimeMs)
+    .map(({ name }) => name);
+
+
 Promise.all(
     languages.map(async language => {
         const listings = getListings(language);
-        const imgs = fs.promises.readdir('public/img');
+        const imgs = getImgs('public/img');
         const translations = require(`./${language}.json`);
         return writeObjToFile(`data-${language}.json`, {
             language,
             languages,
             listings: await listings,
-            imgs: await imgs,
+            imgs: (await imgs),
             translations
         });
     })

@@ -88,6 +88,9 @@ footer
         width: 100%
         height: 100%
         object-fit: cover
+        color: transparent
+    &.dark
+        background: $grey-dark
 
 .listing
     text-decoration: none
@@ -118,11 +121,14 @@ a:hover .img-container, a.img-container:hover
         bottom: 0
         background: rgba($grey-darkest, 0.9)
         img
-            width: calc(100% - #{$spacing * 6})
-            height: calc(100% - #{$spacing * 4})
+            margin: $spacing
+            width: calc(100% - #{$spacing})
+            height: 0
+            flex-grow: 1
             object-fit: contain
         h2
-            margin-bottom: 0
+            margin-top: 0
+            margin-bottom: $spacing
         .control
             position: absolute
             font-family: monospace
@@ -136,6 +142,7 @@ a:hover .img-container, a.img-container:hover
                 top: 0
                 right: 50%
                 bottom: 0
+                align-items: flex-end
                 span
                     background-image: url(/svg/angle-left-solid.svg)
             &.right
@@ -144,6 +151,7 @@ a:hover .img-container, a.img-container:hover
                 right: 0%
                 bottom: 0
                 justify-content: flex-end
+                align-items: flex-end
                 span
                     background-image: url(/svg/angle-right-solid.svg)
             &.close
@@ -152,13 +160,14 @@ a:hover .img-container, a.img-container:hover
                 span
                     background-image: url(/svg/times-solid.svg)
             span
-                width: $spacing * 3
-                height: $spacing * 3
+                width: 3rem
+                height: 3rem
+                margin: $spacing
                 box-sizing: content-box
                 filter: invert(100%)
                 background-position: center
                 background-repeat: no-repeat
-                background-size: $spacing $spacing
+                background-size: 3rem 3rem
     .item:not(:target)
         display: none
 

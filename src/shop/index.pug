@@ -10,7 +10,9 @@ block content
                 .img-container
                     img(
                         loading="lazy"
-                        src=item.image.url)
+                        src=item.image.url
+                        alt=""
+                        title=item.title)
                 h3
                     =item.title
                 span.prompt

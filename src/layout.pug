@@ -22,12 +22,14 @@ mixin link(href)
         block
 
 doctype html
-html#top(lang="en")
+html#top(lang=language)
     head
         title Catiniata
         meta(http-equiv="Content-Type" content="text/html;charset=UTF-8")
         meta(name="charset" content="UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        meta(name="author" content="Catiniata")
+        meta(name="description" content=translations["title"])
 
         link(rel="prerender" as="style" href="/style.css")
 
