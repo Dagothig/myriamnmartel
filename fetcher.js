@@ -11,7 +11,9 @@ const get = (path, options = {}) =>
 
 const getListings = async (language) =>
     (await get(`shops/${ shop }/listings/active`, { limit: 1000, includes: 'MainImage', language }))
-    .data.results.map(listing => ({
+    .data.results
+    .sort((lhs, rhs) => (rhs.shop_section_id - lhs.shop_section_id) || (rhs.creation_tsz - lhs.creation_tsz))
+    .map(listing => ({
         title: listing.title,
         url: listing.url,
         price: listing.price,

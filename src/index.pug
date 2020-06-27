@@ -21,13 +21,14 @@ block content
     - const imgNames = imgs.map(img => img.split('.')[0])
     .grid
         each img, i in imgs
-            a.img-container(href=`#img-${imgNames[i]}`)
-                img(src=`/img-thumbs/${img}`, loading="lazy")
+            - const thumb = img.split('.')[0] + '.jpg';
+            a.img-container(href=`#img-${imgNames[i]}`, id=imgNames[i])
+                img(src=`/img-thumbs/${thumb}`, loading="lazy")
     .lightbox
         each img, i in imgs
             .item(id=`img-${imgNames[i]}`)
                 img(src=`/img/${img}`, loading="lazy")
-                h2=imgNames[i]
+                h2=imgNames[i].replace(/_/g, ' ')
                 a.control.left(href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`): span
                 a.control.right(href=`#img-${imgNames[(i + 1) % imgs.length]}`): span
-                a.control.close(href="#"): span
+                a.control.close(href=`#${imgNames[i]}`): span
