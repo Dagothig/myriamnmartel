@@ -31,14 +31,9 @@ const writeObjToFile = (file, obj) =>
             err ? reject(err) : resolve()));
 
 const getImgs = async dir =>
-    (await Promise.all(
-        (await fs.promises.readdir(dir))
-        .map(async img => ({
-            name: img,
-            stats: await fs.promises.stat(`${dir}/${img}`)
-        }))))
-    .sort((lhs, rhs) => rhs.stats.ctimeMs - lhs.stats.ctimeMs)
-    .map(({ name }) => name);
+    (await fs.promises.readdir(dir))
+    .sort()
+    .reverse();
 
 const getFavicons = async dir =>
     (await fs.promises.readdir(dir))

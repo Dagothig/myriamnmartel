@@ -91,23 +91,40 @@ nav
     nav
         text-align: center
 
-nav
-    background: $white
-    z-index: 2
-    position: sticky
 .top-link
-    display: block
-    text-align: center
-    position: sticky
-    top: 0
+    position: fixed
+    bottom: $spacing * 0.5
+    left: 50%
+    width: $spacing * 2
+    padding-left: $spacing / 8
+    box-sizing: border-box
+    font-size: $spacing
     line-height: $spacing * 2
-    margin-top: -$spacing * 2
-    z-index: 1
+    text-align: center
     text-decoration: none
-    background: rgba($white, 0.4)
-    transition: background 0.15s
-    &:hover
-        background: rgba($white, 0.5)
+    z-index: 1
+    transform: rotate(-90deg) translate(0%, -50%)
+    background: $white
+    border-radius: 50%
+    box-shadow: rgba($grey-darkest, 0.3) 0 $spacing/16 $spacing/4
+    opacity: 0
+    transition: opacity 0.5s
+    pointer-events: none
+    &.show
+        opacity: 1
+        pointer-events: all
+footer
+    margin-bottom: $spacing * 4
+@keyframes enter
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+@keyframes exit
+    0%
+        opacity: 1
+    100%
+        opacity: 0
 
 // === Grid === //
 
@@ -159,7 +176,6 @@ a:hover .img-container, a.img-container:hover
 
 .lightbox
     $control-size: $h2-size * 1.2
-    color: $grey-lightest
     .item
         display: flex
         flex-direction: column
@@ -171,7 +187,9 @@ a:hover .img-container, a.img-container:hover
         right: 0
         bottom: 0
         z-index: 10
-        background: rgba($grey-darkest, 0.9)
+        background: $grey-darkest
+        &, a
+            color: $grey-lightest
         img
             margin: $spacing 0
             width: 100%
@@ -192,37 +210,34 @@ a:hover .img-container, a.img-container:hover
             position: absolute
             text-decoration: none
             display: flex
-            align-items: center
-            &.left
-                left: 0
-                top: 0
-                right: 50%
-                bottom: 0
+            &.left, &.right
+                top: 0%
+                bottom: 0%
                 align-items: flex-end
-                span
-                    background-image: url(/svg/angle-left-solid.svg)
+            &.left
+                left: 0%
+                right: 50%
             &.right
                 left: 50%
-                top: 0
                 right: 0%
-                bottom: 0
                 justify-content: flex-end
-                align-items: flex-end
-                span
-                    background-image: url(/svg/angle-right-solid.svg)
             &.close
-                top: 0
-                right: 0
-                span
-                    background-image: url(/svg/times-solid.svg)
+                top: 0%
+                right: 0%
+                align-items: center
             span
+                display: block
+                font-size: $control-size * 1.5
+                font-weight: 200
+                line-height: $control-size
+                text-align: center
                 width: $control-size
                 height: $control-size
                 margin: $spacing
-                box-sizing: content-box
-                filter: invert(100%)
-                background-position: center
-                background-repeat: no-repeat
-                background-size: $control-size $control-size
-    .item:not(:target)
-        display: none
+        &:not(:target)
+            display: none
+        @media (max-height: 570px) and (min-aspect-ratio: 1/1)
+            img
+                margin: 0
+            .title
+                display: none

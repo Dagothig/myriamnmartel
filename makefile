@@ -39,7 +39,7 @@ public/img-details/%.jpg: public/img/%.*
 define GEN_FAVICON_RULE
 favicons = $(favicons) public/favicon-$(size).png
 public/favicon-$(size).png: src/favicon.svg
-	convert -resize $(size)x$(size) $$< $$@$&
+	convert -resize $(size)x$(size) $$< $$@&
 endef
 
 $(foreach size, $(FAVICON_SIZES), \
@@ -62,6 +62,8 @@ clean:
 	@rm -f public/*.css
 	@echo "Removing thumb images from public"
 	@rm -f public/img-thumbs/*
+	@echo "Removing detail images from public"
+	@rm -f public/img-details/*
 	@echo "Removing data files"
 	@rm -f data*.json
 	@echo "Removing favicons"

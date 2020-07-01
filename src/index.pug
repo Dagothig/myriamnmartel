@@ -19,7 +19,7 @@ block nav
 
 block content
     - const imgNames = imgs.map(img => img.split('.')[0])
-    - const formattedImgNames = imgNames.map(name => name.replace(/_/g, ' '))
+    - const formattedImgNames = imgNames.map(name => name.replace(/^([0-9]+_)*/, ' ').replace(/_/g, ' '))
     .grid
         each img, i in imgs
             - const thumb = img.split('.')[0] + '.jpg';
@@ -29,13 +29,13 @@ block content
                     alt=formattedImgNames[i])
     .lightbox
         each img, i in imgs
+            - const detail = img.split('.')[0] + '.jpg';
             .item(id=`img-${imgNames[i]}`)
-                - const detail = img.split('.')[0] + '.jpg';
                 img(src=`/img-details/${detail}`
                     loading="lazy"
                     alt=""
                     title=formattedImgNames[i])
                 .title: h2=formattedImgNames[i]
-                a.control.left(href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`): span
-                a.control.right(href=`#img-${imgNames[(i + 1) % imgs.length]}`): span
-                a.control.close(href=`#${imgNames[i]}`): span
+                a.control.left(href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`): span <
+                a.control.right(href=`#img-${imgNames[(i + 1) % imgs.length]}`): span >
+                a.control.close(href=`#${imgNames[i]}`): span ×

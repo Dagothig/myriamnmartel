@@ -36,8 +36,15 @@ html#top(lang=language)
             - const size = favicon.split('-')[1].split('.')[0]
             link(rel="icon" href=`/${favicon}` sizes=`${size}x${size}`)
 
+        script.
+            document.addEventListener('scroll', () => {
+                const nav = document.querySelector('nav');
+                const toplink = document.querySelector('.top-link');
+                const cutoff = nav.offsetTop + nav.offsetHeight;
+                const shouldShow = document.documentElement.scrollTop > cutoff;
+                toplink.classList[shouldShow ? 'add' : 'remove']('show');
+            }, { passive: true });
         block head
-
     body
         h1
             a(href=`/${language !== 'en' ? language : ''}`) Catiniata
@@ -49,8 +56,6 @@ html#top(lang=language)
             each other in languages.filter(other => other !== language)
                 a(href=`${other !== 'en' ? '/' + other : ''}/${current !== 'index' ? current : ''}`)
                     +t(other)
-        a.top-link(href="#top")
-            +t("to top")
         block content
         footer
             |© 2020 Myriam Noël-Martel
@@ -64,5 +69,6 @@ html#top(lang=language)
                 img.brand(src="/svg/facebook-f-brands.svg")
             br
             br
-            | Caret gauche, droit, X et icônes de branding courtoisie de
+            | Icônes de branding courtoisie de
             +link("https://fontawesome.com/")|fontawesome
+        a.top-link(href="#top") ­>
