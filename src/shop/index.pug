@@ -1,5 +1,8 @@
 extends /layout.pug
 
+mixin amt(amt, curr)
+    = curr === 'CAD' ? `${amt} CA$` : `${amt} ${curr}`
+
 block nav
     - const current = "shop"
 
@@ -8,14 +11,10 @@ block content
         each item in listings
             +link(href=item.url, class="listing")
                 .img-container
-                    img(
-                        loading="lazy"
+                    img(loading="lazy"
                         src=item.image.url
                         alt=""
                         title=item.title)
-                h3
-                    =item.title
-                span.prompt
-                    +t('buy')
-                span.right
-                    =currency === 'CAD' ? `${item.price} CA$` : `${item.price} ${item.currency}`
+                h3=item.title
+                span.prompt: +t('buy')
+                span.right: +amt(item.price, item.currency)
