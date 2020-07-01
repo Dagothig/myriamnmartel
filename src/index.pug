@@ -30,7 +30,8 @@ block content
             .item(id=`img-${imgNames[i]}`)
                 - const detail = img.split('.')[0] + '.jpg';
                 img(src=`/img-details/${detail}`, loading="lazy", alt="", title=formattedImgNames[i])
-                h2=formattedImgNames[i]
+                .title
+                    h2=formattedImgNames[i]
                 a.control.left(href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`): span
                 a.control.right(href=`#img-${imgNames[(i + 1) % imgs.length]}`): span
                 a.control.close(href=`#${imgNames[i]}`): span

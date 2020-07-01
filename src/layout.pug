@@ -49,6 +49,8 @@ html#top(lang=language)
             each other in languages.filter(other => other !== language)
                 a(href=`${other !== 'en' ? '/' + other : ''}/${current !== 'index' ? current : ''}`)
                     +t(other)
+        a.top-link(href="#top")
+            +t("to top")
         block content
         footer
             |© 2020 Myriam Noël-Martel
