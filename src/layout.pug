@@ -32,9 +32,11 @@ html#top(lang=language)
         meta(name="description" content=translations["title"])
 
         link(rel="prerender" as="style" href="/style.css")
-
         link(rel="stylesheet" href="/style.css")
-        link(rel="icon" href="/favicon.ico")
+
+        each favicon in favicons
+            - const size = favicon.split('-')[1].split('.')[0]
+            link(rel="icon" href=favicon sizes=`${size}x${size}`)
 
         block head
 

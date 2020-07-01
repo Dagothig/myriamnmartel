@@ -40,17 +40,22 @@ const getImgs = async dir =>
     .sort((lhs, rhs) => rhs.stats.ctimeMs - lhs.stats.ctimeMs)
     .map(({ name }) => name);
 
+const getFavicons = async dir =>
+    (await fs.promises.readdir(dir))
+    .filter(f => f.includes("favicon-"));
 
 Promise.all(
     languages.map(async language => {
         const listings = getListings(language);
         const imgs = getImgs('public/img');
+        const favicons = getFavicons('public');
         const translations = require(`./${language}.json`);
         return writeObjToFile(`data-${language}.json`, {
             language,
             languages,
             listings: await listings,
             imgs: (await imgs),
+            favicons: (await favicons),
             translations
         });
     })

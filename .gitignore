@@ -3,6 +3,7 @@ public/**/*.html
 public/**/*.css
 public/img-thumbs
 public/img-details
+public/favicon*
 .env
 data*.json
 *.log

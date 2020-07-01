@@ -1,14 +1,15 @@
 #!make
 include .env
+FAVICON_SIZES=32 128 152 167 180 192 196
 
-build: html css img
+build: html css
 
 .PHONY: node
 node:
 	@yarn
 
 .PHONY: data
-data: node img
+data: node img favicons
 	@node fetcher
 
 .PHONY: html
@@ -29,11 +30,23 @@ img: $(thumbs) $(details)
 
 public/img-thumbs/%.jpg: public/img/%.*
 	@mkdir -p public/img-thumbs
-	convert -quality 70 -resize 570 $< $@
+	convert -quality 70 -resize 570 $< $@&
 
 public/img-details/%.jpg: public/img/%.*
 	@mkdir -p public/img-details
-	convert -quality 85 -resize 2000 $< $@
+	convert -quality 85 -resize 2000 $< $@&
+
+define GEN_FAVICON_RULE
+favicons = $(favicons) public/favicon-$(size).png
+public/favicon-$(size).png: src/favicon.svg
+	convert -resize $(size)x$(size) $$< $$@$&
+endef
+
+$(foreach size, $(FAVICON_SIZES), \
+	$(eval $(GEN_FAVICON_RULE)))
+
+.PHONY: favicons
+favicons: $(favicons)
 
 .PHONY: serve
 serve: build
@@ -51,4 +64,6 @@ clean:
 	@rm -f public/img-thumbs/*
 	@echo "Removing data files"
 	@rm -f data*.json
+	@echo "Removing favicons"
+	@rm -f public/favicon*
 
