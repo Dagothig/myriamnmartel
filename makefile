@@ -30,16 +30,16 @@ img: $(thumbs) $(details)
 
 public/img-thumbs/%.jpg: public/img/%.*
 	@mkdir -p public/img-thumbs
-	convert -quality 70 -resize 570 $< $@&
+	convert -quality 70 -resize 570 $< $@
 
 public/img-details/%.jpg: public/img/%.*
 	@mkdir -p public/img-details
-	convert -quality 85 -resize 2000 $< $@&
+	convert -quality 85 -resize 2000 $< $@
 
 define GEN_FAVICON_RULE
 favicons = $(favicons) public/favicon-$(size).png
 public/favicon-$(size).png: src/favicon.svg
-	convert -resize $(size)x$(size) $$< $$@&
+	convert -resize $(size)x$(size) $$< $$@
 endef
 
 $(foreach size, $(FAVICON_SIZES), \
