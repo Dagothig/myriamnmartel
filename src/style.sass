@@ -1,4 +1,5 @@
-$spacing: 2rem
+$unit: 11pt
+$spacing: $unit * 2
 
 $grey-lightest: #eee
 $grey-light: #afafaf
@@ -9,7 +10,8 @@ $grey-darkest: #111
 
 html
     margin: 0
-    font-size: 14px
+    font-size: $unit
+    line-height: $unit
 
 body
     font-family: 'Poppins', sans-serif
@@ -19,7 +21,8 @@ body
     color: $grey-darkest
 
 h1
-    font-size: 3.6rem
+    font-size: #{$unit * 3.6}
+    line-height: #{$unit * 3.6}
     font-weight: 200
     text-align: center
     margin-top: $spacing * 2
@@ -27,17 +30,20 @@ h1
     a
         text-decoration: none
     p
-        font-size: 1rem
+        font-size: $unit
         font-weight: 200
         margin: 0
 
+$h2-size: #{$unit * 2}
 h2
-    font-size: 2rem
+    font-size: $h2-size
+    line-height: $h2-size
     font-weight: 200
     text-transform: capitalize
 
 h3
-    font-size: 1rem
+    font-size: $unit
+    line-height: $unit
     font-weight: 200
 
 nav
@@ -132,7 +138,7 @@ a:hover .img-container, a.img-container:hover
         .control
             position: absolute
             font-family: monospace
-            font-size: 5rem
+            font-size: #{$unit * 5}
             line-height: 1em
             text-decoration: none
             display: flex
@@ -159,19 +165,20 @@ a:hover .img-container, a.img-container:hover
                 right: 0
                 span
                     background-image: url(/svg/times-solid.svg)
+            $control-size: $h2-size
             span
-                width: 3rem
-                height: 3rem
+                width: $control-size
+                height: $control-size
                 margin: $spacing
                 box-sizing: content-box
                 filter: invert(100%)
                 background-position: center
                 background-repeat: no-repeat
-                background-size: 3rem 3rem
+                background-size: $control-size $control-size
     .item:not(:target)
         display: none
 
 .brand
-    font-size: 1.5rem
-    width: 1em
-    height: 1em
+    font-size: #{$unit * 1.5}
+    width: $unit
+    height: $unit

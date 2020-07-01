@@ -30,13 +30,11 @@ html#top(lang=language)
         meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
         meta(name="author" content="Catiniata")
         meta(name="description" content=translations["title"])
-
-        link(rel="prerender" as="style" href="/style.css")
         link(rel="stylesheet" href="/style.css")
 
         each favicon in favicons
             - const size = favicon.split('-')[1].split('.')[0]
-            link(rel="icon" href=favicon sizes=`${size}x${size}`)
+            link(rel="icon" href=`/${favicon}` sizes=`${size}x${size}`)
 
         block head
 
