@@ -43,7 +43,7 @@ h2
 
 h3
     font-size: $unit
-    line-height: $unit
+    line-height: $unit * 1.2
     font-weight: 200
 
 nav
@@ -78,7 +78,9 @@ footer
 
 .grid
     display: grid
-    grid-template-columns: repeat(auto-fill, minmax(calc(570px/2), 1fr))
+    // Image size is 570px. Half of that is 285px, with a minmax of the half then we never
+    // have a greater cell size than 570px.
+    grid-template-columns: repeat(auto-fill, minmax(unquote('min(285px, 100%, 50vh)'), 1fr))
     grid-gap: $spacing
 
 .img-container
@@ -128,7 +130,7 @@ a:hover .img-container, a.img-container:hover
         background: rgba($grey-darkest, 0.9)
         img
             margin: $spacing
-            width: calc(100% - #{$spacing})
+            width: calc(100% - #{$spacing * 2})
             height: 0
             flex-grow: 1
             object-fit: contain
