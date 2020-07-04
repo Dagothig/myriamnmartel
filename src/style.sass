@@ -36,6 +36,7 @@ h1
     margin-bottom: $spacing
     a
         text-decoration: none
+        outline: none
     p
         +font-size($unit)
         font-weight: 200
@@ -53,13 +54,12 @@ h3
 
 a
     color: $grey-darkest
-    outline: none
 
 footer
     margin: $spacing * 1.5 0
     text-align: center
 
-.brand
+.brand img
     padding: 0 $spacing / 4
     width: $unit * 1.5
     height: $unit * 1.5
@@ -75,11 +75,16 @@ nav
     a
         font-weight: 500
         text-decoration: none
+        outline: none
         color: $grey-light
-        transition: color 0.15s
+        transition: color 0.3s
         padding: $spacing / 2
         display: inline-block
-        &:hover
+        &:focus
+            color: mix($grey-light, $grey-dark, 50%)
+            text-decoration: underline
+        &:hover,
+        &:active
             color: $grey-dark
         &+a
             margin-left: 0
@@ -101,6 +106,7 @@ nav
     line-height: $spacing * 2
     text-align: center
     text-decoration: none
+    outline: none
     z-index: 1
     transform: rotate(-90deg) translate(0%, -50%)
     background: $white
@@ -112,6 +118,8 @@ nav
     &.show
         opacity: 1
         pointer-events: all
+    &:focus
+        background: $grey-lightest
 footer
     margin-bottom: $spacing * 4
 @keyframes enter
@@ -146,7 +154,7 @@ footer
     position: relative
     padding-bottom: 100%
     background: $grey-lightest
-    transition: 0.15s
+    transition: 0.3s
     overflow: hidden
     img
         position: absolute
@@ -159,13 +167,20 @@ footer
     &.dark
         background: $grey-dark
 
-a:hover .img-container, a.img-container:hover
-    cursor: pointer
-    opacity: 0.6
+a.img-container
+    outline: none
+
+a:focus .img-container, a.img-container:focus
     box-shadow: rgba($grey-darkest, 0.3) 0 $spacing/16 $spacing/4
+    opacity: 0.8
+
+a:hover .img-container, a.img-container:hover
+    box-shadow: rgba($grey-darkest, 0.3) 0 $spacing/16 $spacing/4
+    opacity: 0.6
 
 .listing
     text-decoration: none
+    outline: none
     .img-container
         width: 100%
     .prompt
@@ -211,7 +226,9 @@ a:hover .img-container, a.img-container:hover
         .control
             position: absolute
             text-decoration: none
+            outline: none
             display: flex
+            -webkit-tap-highlight-color: transparent
             &.left, &.right
                 top: 0%
                 bottom: 0%

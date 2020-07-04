@@ -36,6 +36,15 @@ block content
                     alt=""
                     title=formattedImgNames[i])
                 .title: h2=formattedImgNames[i]
-                a.control.left(href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`): span <
-                a.control.right(href=`#img-${imgNames[(i + 1) % imgs.length]}`): span >
-                a.control.close(href=`#${imgNames[i]}`): span ×
+                a.control.left(
+                    href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`
+                    tabindex="-1")
+                    span <
+                a.control.right(
+                    href=`#img-${imgNames[(i + 1) % imgs.length]}`
+                    tabindex="-1")
+                    span >
+                a.control.close(
+                    href=`#${imgNames[i]}`
+                    tabindex="-1")
+                    span ×

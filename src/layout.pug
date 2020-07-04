@@ -36,18 +36,10 @@ html#top(lang=language)
             - const size = favicon.split('-')[1].split('.')[0]
             link(rel="icon" href=`/${favicon}` sizes=`${size}x${size}`)
 
-        script.
-            document.addEventListener('scroll', () => {
-                const nav = document.querySelector('nav');
-                const toplink = document.querySelector('.top-link');
-                const cutoff = nav.offsetTop + nav.offsetHeight;
-                const shouldShow = document.documentElement.scrollTop > cutoff;
-                toplink.classList[shouldShow ? 'add' : 'remove']('show');
-            }, { passive: true });
         block head
     body
         h1
-            a(href=`/${language !== 'en' ? language : ''}`) Catiniata
+            a(href=`/${language !== 'en' ? language : ''}`, tabindex="-1") Catiniata
             p: +t("title")
         nav
             block nav
@@ -61,15 +53,23 @@ html#top(lang=language)
             |© 2020 Myriam Noël-Martel
             br
             br
-            +link("https://www.etsy.com/ca-fr/shop/Catiniata")
-                img.brand(src="/svg/etsy-brands.svg")
-            +link("https://www.instagram.com/catiniata")
-                img.brand(src="/svg/instagram-brands.svg")
-            +link("https://www.facebook.com/catiniata")
-                img.brand(src="/svg/facebook-f-brands.svg")
+            +link(href="https://www.etsy.com/ca-fr/shop/Catiniata", class="brand")
+                img(src="/svg/etsy-brands.svg")
+            +link(href="https://www.instagram.com/catiniata", class="brand")
+                img(src="/svg/instagram-brands.svg")
+            +link(href="https://www.facebook.com/catiniata", class="brand")
+                img(src="/svg/facebook-f-brands.svg")
             br
             br
             | Icônes de branding courtoisie de
             +space()
             +link("https://fontawesome.com/")|fontawesome
         a.top-link(href="#top") ­>
+        script.
+            const nav = document.querySelector('nav');
+            const toplink = document.querySelector('.top-link');
+            document.addEventListener('scroll', () => {
+                const cutoff = nav.offsetTop + nav.offsetHeight;
+                const shouldShow = document.documentElement.scrollTop > cutoff;
+                toplink.classList[shouldShow ? 'add' : 'remove']('show');
+            }, { passive: true });
