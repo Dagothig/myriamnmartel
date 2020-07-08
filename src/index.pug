@@ -19,19 +19,20 @@ block nav
 
 block content
     - const imgNames = imgs.map(img => img.split('.')[0])
-    - const formattedImgNames = imgNames.map(name => name.replace(/^([0-9]+_)*/, ' ').replace(/_/g, ' '))
+    - const formattedImgNames = imgNames.map(name => name.replace(/^([0-9]+_)*/, '').replace(/_/g, ' '))
     .grid
         each img, i in imgs
-            - const thumb = img.split('.')[0] + '.jpg';
+            - const thumb = img.split('.')[0] + '.jpg'
             a.img-container.dark(href=`#img-${imgNames[i]}`, id=imgNames[i])
                 img(src=`/img-thumbs/${thumb}`
                     loading="lazy"
                     alt=formattedImgNames[i])
     .lightbox
         each img, i in imgs
-            - const detail = img.split('.')[0] + '.jpg';
+            - const detail = img.split('.')[0] + '.jpg'
             .item(id=`img-${imgNames[i]}`)
                 img(src=`/img-details/${detail}`
+                    style=`background-image: url(/img-thumbs/${detail})`
                     loading="lazy"
                     alt=""
                     title=formattedImgNames[i])
@@ -39,12 +40,12 @@ block content
                 a.control.left(
                     href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`
                     tabindex="-1")
-                    span <
+                    span &lt;
                 a.control.right(
                     href=`#img-${imgNames[(i + 1) % imgs.length]}`
                     tabindex="-1")
-                    span >
+                    span &gt;
                 a.control.close(
                     href=`#${imgNames[i]}`
                     tabindex="-1")
-                    span ×
+                    span &times;
