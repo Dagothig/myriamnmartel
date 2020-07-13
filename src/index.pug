@@ -19,24 +19,21 @@ block nav
 
 block content
     - const imgNames = imgs.map(img => img.split('.')[0])
-    - const formattedImgNames = imgNames.map(name => name.replace(/^([0-9]+_)*/, '').replace(/_/g, ' '))
-    .grid
-        each img, i in imgs
-            - const thumb = img.split('.')[0] + '.jpg'
-            a.img-container.dark(href=`#img-${imgNames[i]}`, id=imgNames[i])
-                img(src=`/img-thumbs/${thumb}`
-                    loading="lazy"
-                    alt=formattedImgNames[i])
+    - const displayNames = imgNames.map(name => name.replace(/^([0-9]+_)*/, '').replace(/_/g, ' '))
+    .grid: each _, i in imgs
+        a.item.img-container.dark(href=`#img-${imgNames[i]}`, id=imgNames[i])
+            img(src=`/img-thumbs/${imgNames[i]}.jpg`
+                loading="lazy"
+                alt=displayNames[i])
     .lightbox
-        each img, i in imgs
-            - const detail = img.split('.')[0] + '.jpg'
+        each _, i in imgs
             .item(id=`img-${imgNames[i]}`)
-                img(src=`/img-details/${detail}`
-                    style=`background-image: url(/img-thumbs/${detail})`
+                img(src=`/img-details/${imgNames[i]}.jpg`
+                    style=`background-image: url(/img-thumbs/${imgNames[i]}.jpg)`
                     loading="lazy"
                     alt=""
-                    title=formattedImgNames[i])
-                .title: h2=formattedImgNames[i]
+                    title=displayNames[i])
+                .title: h2=displayNames[i]
                 a.control.left(
                     href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`
                     tabindex="-1")

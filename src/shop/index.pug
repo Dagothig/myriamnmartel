@@ -7,14 +7,13 @@ block nav
     - const current = "shop"
 
 block content
-    .grid
-        each item in listings
-            +link(href=item.url, class="listing")
-                .img-container
-                    img(loading="lazy"
-                        src=item.image.url
-                        alt=""
-                        title=item.title)
-                h3=item.title
-                span.prompt: +t('buy')
-                span.right: +amt(item.price, item.currency)
+    .grid: each item in listings
+        +link(href=item.url, class="listing item")
+            .img-container
+                img(loading="lazy"
+                    src=item.image.url
+                    alt=""
+                    title=item.title)
+            h3=item.title
+            span.prompt: +t('buy')
+            span.right: +amt(item.price, item.currency)

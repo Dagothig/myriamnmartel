@@ -8,3 +8,5 @@ public/favicon*
 data*.json
 *.log
 .fuse_hidden*
+.current
+.based

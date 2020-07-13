@@ -18,6 +18,7 @@ $grey-darkest: #111
 html
     margin: 0
     scroll-behavior: smooth
+    color: $grey-darkest
     background: $white
     +font-size($unit)
 
@@ -26,7 +27,6 @@ body
     margin: $spacing auto
     padding: 0 $spacing
     max-width: calc(max(80vw, 1280px))
-    color: $grey-darkest
 
 h1
     +font-size($unit * 3.6)
@@ -95,6 +95,8 @@ nav
     nav
         text-align: center
 
+// === Top link === //
+
 .top-link
     position: fixed
     bottom: $spacing * 0.5
@@ -146,7 +148,7 @@ footer
 
 @media (max-height: 570px) and (min-aspect-ratio: 1/1)
     .grid
-        grid-template-columns: 1fr 1fr
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))
 
 // === Image container === //
 
