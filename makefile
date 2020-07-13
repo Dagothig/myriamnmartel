@@ -28,8 +28,7 @@ details = $(subst img,img-details, $(images:.png=.jpg))
 .PHONY: unused
 unused:
 	@rm -f .current
-	@find public/img-thumbs -type f | sort > .current
-	@find public/img-details -type f | sort >> .current
+	@find public/img-* -type f | sort > .current
 	@rm -f .based
 	@echo "$(thumbs) $(details)" | xargs | tr " " "\n" | sort > .based
 	@comm -2 -3 .current .based | xargs -L1 echo
