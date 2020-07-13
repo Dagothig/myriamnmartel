@@ -33,7 +33,6 @@ unused:
 	@rm -f .based
 	@echo "$(thumbs) $(details)" | xargs | tr " " "\n" > .based
 	@comm -2 -3 .current .based | xargs -L1 echo
-	@rm -f .current .based
 
 .PHONY: img
 img: $(thumbs) $(details) unused
