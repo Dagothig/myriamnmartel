@@ -31,10 +31,10 @@ unused:
 	@find public/img-* -type f | sort > .current
 	@rm -f .based
 	@echo "$(thumbs) $(details)" | xargs | tr " " "\n" | sort > .based
-	@comm -2 -3 .current .based | xargs -L1 echo
+	@comm -2 -3 .current .based | xargs -L1 rm -vf
 
 .PHONY: img
-img: $(thumbs) $(details) unused
+img: unused $(thumbs) $(details)
 
 public/img-thumbs/%.jpg: public/img/%.*
 	@mkdir -p public/img-thumbs
