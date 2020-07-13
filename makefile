@@ -31,7 +31,7 @@ unused:
 	@find public/img-thumbs -type f | sort > .current
 	@find public/img-details -type f | sort >> .current
 	@rm -f .based
-	@echo "$(thumbs) $(details)" | xargs | tr " " "\n" > .based
+	@echo "$(thumbs) $(details)" | xargs | tr " " "\n" | sort > .based
 	@comm -2 -3 .current .based | xargs -L1 echo
 
 .PHONY: img
