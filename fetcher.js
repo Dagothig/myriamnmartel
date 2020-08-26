@@ -6,23 +6,37 @@ const languages = ['fr', 'en'];
 const formatOptions = options =>
     Object.entries(options).map(arr => arr.join('=')).join('&');
 
-const get = (path, options = {}) =>
-    axios.get(`${ base_url }/${ path }?${ formatOptions({ ...options, api_key }) }`);
+const get = async (path, options = {}) => { 
+    try {
+        return (await axios.get(`${ base_url }/${ path }?${ formatOptions({ ...options, api_key }) }`))
+            .data.results;    
+    } catch (err) {
+        console.error(err);
+    }
+};
 
 const getListings = async language =>
     (await get(`shops/${ shop }/listings/active`, { limit: 1000, includes: 'MainImage', language }))
-    .data.results
-    .sort((lhs, rhs) => (rhs.shop_section_id - lhs.shop_section_id) || (rhs.creation_tsz - lhs.creation_tsz))
+    .sort((lhs, rhs) => rhs.creation_tsz - lhs.creation_tsz)
     .map(listing => ({
         title: listing.title,
         url: listing.url,
         price: listing.price,
         currency: listing.currency_code,
         quantity: listing.quantity,
+        section_id: listing.shop_section_id,
         image: {
             url: listing.MainImage.url_570xN,
             full: listing.MainImage.url_fullxfull
         }
+    }));
+
+const getSections = async language =>
+    (await get(`/shops/${ shop }/sections`, { language }))
+    .sort((lhs, rhs) => rhs.rank - lhs.rank)
+    .map(section => ({
+        id: section.shop_section_id,
+        title: section.title
     }));
 
 const writeObjToFile = (file, obj) =>
@@ -41,16 +55,26 @@ const getFavicons = async dir =>
 
 Promise.all(
     languages.map(async language => {
-        const listings = getListings(language);
-        const imgs = getImgs('public/img');
-        const favicons = getFavicons('public');
+        const $sections = getSections(language);
+        const $listings = getListings(language);
+        const $imgs = getImgs('public/img');
+        const $favicons = getFavicons('public');
         const translations = require(`./${language}.json`);
+
+        const [sections, listings] = await Promise.all([$sections, $listings]);
+
         return writeObjToFile(`data-${language}.json`, {
             language,
             languages,
-            listings: await listings,
-            imgs: (await imgs),
-            favicons: (await favicons),
+            listings: sections
+                .map(section => ({
+                    id: section.id,
+                    title: section.title,
+                    listings: listings.filter(listing => listing.section_id === section.id)
+                }))
+                .filter(section => section.listings.length),
+            imgs: (await $imgs),
+            favicons: (await $favicons),
             translations
         });
     })

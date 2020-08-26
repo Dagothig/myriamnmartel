@@ -7,13 +7,17 @@ block nav
     - const current = "shop"
 
 block content
-    .grid: each item in listings
-        +link(href=item.url, class="listing item")
-            .img-container
-                img(loading="lazy"
-                    src=item.image.url
-                    alt=""
-                    title=item.title)
-            h3=item.title
-            span.prompt: +t('buy')
-            span.right: +amt(item.price, item.currency)
+    each section in listings
+        input.collapse-value(id=section.id, type="checkbox")
+        h2.collapse-control
+            label(for=section.id)=section.title
+        .grid.collapse-target: each item in section.listings
+            +link(href=item.url, class="listing item")
+                .img-container
+                    img(loading="lazy"
+                        src=item.image.url
+                        alt=""
+                        title=item.title)
+                h3=item.title
+                span.prompt: +t('buy')
+                span.right: +amt(item.price, item.currency)

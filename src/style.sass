@@ -43,10 +43,12 @@ h1
         margin: 0
 
 $h2-size: $unit * 2
-h2
+h2, summary
     +font-size($h2-size)
     font-weight: 200
     text-transform: capitalize
+    margin-top: $spacing
+    margin-bottom: $spacing
 
 h3
     +font-size($unit)
@@ -265,3 +267,34 @@ a:hover .img-container, a.img-container:hover
                 margin: 0
             .title
                 display: none
+
+// === Collapse === //
+
+.collapse-value
+    position: absolute
+    opacity: 0
+    margin-top: $unit * 6
+    &:focus + .collapse-control label
+        text-decoration: underline
+    &:checked + .collapse-control label
+        color: $grey-light
+        &:hover
+            color: $grey-dark
+        &:after
+            transform: scaleY(-1) rotate(90deg)
+    &:checked + .collapse-control + .collapse-target
+        display: none
+    &:checked:focus + .collapse-control label
+        color: mix($grey-light, $grey-dark, 50%)
+
+.collapse-control label
+    cursor: pointer
+    display: block
+    transition: color 0.3s
+
+.collapse-control label:after
+    content: ">"
+    transform: rotate(90deg)
+    display: inline-block
+    transition: transform 0.3s
+    margin-left: $spacing / 2
