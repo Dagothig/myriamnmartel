@@ -31,7 +31,7 @@ block content
                 img(src=`/img-details/${imgNames[i]}.jpg`
                     style=`background-image: url(/img-thumbs/${imgNames[i]}.jpg)`
                     loading="lazy"
-                    alt=""
+                    alt=displayNames[i]
                     title=displayNames[i])
                 .title: h2=displayNames[i]
                 a.control.left(
