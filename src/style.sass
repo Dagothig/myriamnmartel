@@ -159,7 +159,6 @@ footer
 .img-container
     position: relative
     padding-bottom: 100%
-    background: $grey-lightest
     transition: 0.3s
     overflow: hidden
     img
@@ -171,7 +170,7 @@ footer
         object-fit: cover
         color: transparent
     &.dark
-        background: $grey-dark
+        background: $grey-lightest
 
 a.img-container
     outline: none
@@ -207,9 +206,9 @@ a:hover .img-container, a.img-container:hover
         right: 0
         bottom: 0
         z-index: 10
-        background: $grey-darkest
+        background: $white
         &, a
-            color: $grey-lightest
+            color: $grey-darkest
         a
             background: none
             outline: none

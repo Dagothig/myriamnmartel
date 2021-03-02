@@ -13,7 +13,7 @@ block content
             label(for=section.id)=section.title
         .grid.collapse-target: each item in section.listings
             +link(href=item.url, class="listing item")
-                .img-container
+                .img-container.dark
                     img(loading="lazy"
                         src=item.image.url
                         alt=""

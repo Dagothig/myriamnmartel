@@ -21,9 +21,9 @@ html: node data clean-html
 css: node clean-css
 	@node_modules/node-sass/bin/node-sass src/ -o public/
 
-images = $(wildcard public/img/*.png public/img/*.jpg)
-thumbs = $(subst img,img-thumbs, $(images:.png=.jpg))
-details = $(subst img,img-details, $(images:.png=.jpg))
+images = $(wildcard public/img/*.png public/img/*.png)
+thumbs = $(subst img,img-thumbs, $(images:.png=.png))
+details = $(subst img,img-details, $(images:.png=.png))
 
 .PHONY: unused
 unused:
@@ -36,11 +36,11 @@ unused:
 .PHONY: img
 img: unused $(thumbs) $(details)
 
-public/img-thumbs/%.jpg: public/img/%.*
+public/img-thumbs/%.png: public/img/%.*
 	@mkdir -p public/img-thumbs
 	convert -quality 70 -resize 570 $< $@
 
-public/img-details/%.jpg: public/img/%.*
+public/img-details/%.png: public/img/%.*
 	@mkdir -p public/img-details
 	convert -quality 85 -resize 2000 $< $@
 
@@ -82,4 +82,3 @@ clean: clean-html clean-css
 	@rm -f data*.json
 	@echo "Removing favicons"
 	@rm -f public/favicon*
-

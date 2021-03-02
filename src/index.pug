@@ -21,15 +21,15 @@ block content
     - const imgNames = imgs.map(img => img.split('.')[0])
     - const displayNames = imgNames.map(name => name.replace(/^([0-9]+_)*/, '').replace(/_/g, ' '))
     .grid: each _, i in imgs
-        a.item.img-container.dark(href=`#img-${imgNames[i]}`, id=imgNames[i])
-            img(src=`/img-thumbs/${imgNames[i]}.jpg`
+        a.item.img-container(href=`#img-${imgNames[i]}`, id=imgNames[i])
+            img(src=`/img-thumbs/${imgNames[i]}.png`
                 loading="lazy"
                 alt=displayNames[i])
     .lightbox
         each _, i in imgs
             .item(id=`img-${imgNames[i]}`)
-                img(src=`/img-details/${imgNames[i]}.jpg`
-                    style=`background-image: url(/img-thumbs/${imgNames[i]}.jpg)`
+                img(src=`/img-details/${imgNames[i]}.png`
+                    style=`background-image: url(/img-thumbs/${imgNames[i]}.png)`
                     loading="lazy"
                     alt=displayNames[i]
                     title=displayNames[i])
