@@ -6,10 +6,10 @@ const languages = ['fr', 'en'];
 const formatOptions = options =>
     Object.entries(options).map(arr => arr.join('=')).join('&');
 
-const get = async (path, options = {}) => { 
+const get = async (path, options = {}) => {
     try {
         return (await axios.get(`${ base_url }/${ path }?${ formatOptions({ ...options, api_key }) }`))
-            .data.results;    
+            .data.results;
     } catch (err) {
         console.error(err);
     }
@@ -53,15 +53,23 @@ const getFavicons = async dir =>
     (await fs.promises.readdir(dir))
     .filter(f => f.includes("favicon-"));
 
+const getCatalog = async language => Object.fromEntries(
+    (await fs.promises.readFile(`./catalogue-site-${ language }.csv`, { encoding: "utf8" }))
+    .split("\n")
+    .map(line => line.split(","))
+    .filter(([name]) => name)
+    .map(([name, ...info]) => [name, info]));
+
 Promise.all(
     languages.map(async language => {
         const $sections = getSections(language);
         const $listings = getListings(language);
         const $imgs = getImgs('public/img');
         const $favicons = getFavicons('public');
+        const $catalog = getCatalog(language);
         const translations = require(`./${language}.json`);
 
-        const [sections, listings] = await Promise.all([$sections, $listings]);
+        const [sections, listings, catalog] = await Promise.all([$sections, $listings, $catalog]);
 
         return writeObjToFile(`data-${language}.json`, {
             language,
@@ -75,7 +83,8 @@ Promise.all(
                 .filter(section => section.listings.length),
             imgs: (await $imgs),
             favicons: (await $favicons),
-            translations
+            translations,
+            catalog
         });
     })
 ).catch(console.error);

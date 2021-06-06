@@ -34,6 +34,8 @@ block content
                     alt=displayNames[i]
                     title=displayNames[i])
                 .title: h2=displayNames[i]
+                each info in catalog[imgNames[i].substring(8)] || []
+                    .info=info
                 a.control.left(
                     href=`#img-${imgNames[(i - 1 + imgs.length) % imgs.length]}`
                     tabindex="-1")

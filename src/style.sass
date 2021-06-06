@@ -207,6 +207,7 @@ a:hover .img-container, a.img-container:hover
         bottom: 0
         z-index: 10
         background: $white
+        padding-bottom: $spacing / 2
         &, a
             color: $grey-darkest
         a
@@ -224,13 +225,16 @@ a:hover .img-container, a.img-container:hover
         .title
             height: $h2-size * 1.2
             margin-top: 0
-            margin-bottom: $spacing
-            margin-left: $control-size + $spacing
-            margin-right: $control-size + $spacing
-            text-align: center
+            margin-bottom: $spacing / 2
             display: flex
             align-items: center
             justify-content: center
+        .info
+            text-transform: lowercase
+        .title, .info
+            text-align: center
+            margin-left: $control-size + $spacing
+            margin-right: $control-size + $spacing
         .control
             position: absolute
             text-decoration: none
