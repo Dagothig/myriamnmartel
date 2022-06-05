@@ -19,7 +19,7 @@ html: node data clean-html
 
 .PHONY: css
 css: node clean-css
-	@node_modules/node-sass/bin/node-sass src/ -o public/
+	@node node_modules/sass/sass.js src/:public/
 
 images = $(wildcard public/img/*.png public/img/*.png)
 thumbs = $(subst img,img-thumbs, $(images:.png=.png))
@@ -59,7 +59,7 @@ favicons: $(favicons)
 .PHONY: serve
 serve: build
 	@(node node_modules/pug-cli -w -O data-en.json src/ -b src/ -o public/ &\
-	  node_modules/node-sass/bin/node-sass -w src/ -o public/ &\
+	  @node node_modules/sass/sass.js src/:public/ &\
 	  node server)
 
 .PHONY: clean-html

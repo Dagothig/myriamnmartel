@@ -1,3 +1,5 @@
+@use "sass:math"
+
 $unit: 11pt
 $spacing: $unit * 2
 
@@ -69,7 +71,7 @@ footer
     text-align: center
 
 .brand img
-    padding: 0 $spacing / 4
+    padding: 0 math.div($spacing, 4)
     width: $unit * 1.5
     height: $unit * 1.5
 
@@ -79,7 +81,7 @@ span.right
 // === Navigation === //
 
 nav
-    margin: $spacing/2 (-$spacing/2)
+    margin: math.div($spacing, 2) (-1 * math.div($spacing, 2))
     text-align: right
     a
         font-weight: 500
@@ -87,7 +89,7 @@ nav
         outline: none
         color: $grey-light
         transition: color 0.3s
-        padding: $spacing / 2
+        padding: math.div($spacing, 2)
         display: inline-block
         &:focus
             color: mix($grey-light, $grey-dark, 50%)
@@ -113,7 +115,7 @@ nav
     bottom: $spacing * 0.5
     left: 50%
     width: $spacing * 2
-    padding-left: $spacing / 8
+    padding-left: math.div($spacing, 8)
     box-sizing: border-box
     font-size: $spacing
     line-height: $spacing * 2
@@ -131,7 +133,7 @@ nav
         opacity: 1
         pointer-events: all
     &:hover
-        box-shadow: rgba($grey-darkest, 0.3) #{-$spacing/16} 0 $spacing/4
+        box-shadow: rgba($grey-darkest, 0.3) #{-1 * math.div($spacing, 16)} 0 math.div($spacing, 4)
     &:focus
         background: $grey-lightest
 footer
@@ -183,11 +185,11 @@ a.img-container
     outline: none
 
 a:focus .img-container, a.img-container:focus
-    filter: drop-shadow(0 $spacing / 16 $spacing / 4 rgba($grey-darkest, 0.3))
+    filter: drop-shadow(0 math.div($spacing, 16) math.div($spacing, 4) rgba($grey-darkest, 0.3))
     opacity: 0.8
 
 a:hover .img-container, a.img-container:hover
-    filter: drop-shadow(0 $spacing / 16 $spacing / 4 rgba($grey-darkest, 0.3))
+    filter: drop-shadow(0 math.div($spacing, 16) math.div($spacing, 4) rgba($grey-darkest, 0.3))
     opacity: 0.6
 
 .listing
@@ -230,16 +232,16 @@ a:hover .img-container, a.img-container:hover
             color: transparent
         .title
             height: $h2-size * 1.2
-            margin-top: $spacing / 4
+            margin-top: math.div($spacing, 4)
             margin-bottom: $spacing
             display: flex
             align-items: center
             justify-content: center
         .info
             text-transform: lowercase
-            font-weight: 200;
+            font-weight: 200
             &+.info
-                margin-top: $spacing / 8
+                margin-top: math.div($spacing, 8)
         .title, .info
             text-align: center
             margin-left: $control-size + $spacing
@@ -311,4 +313,4 @@ a:hover .img-container, a.img-container:hover
     transform: rotate(90deg)
     display: inline-block
     transition: transform 0.3s
-    margin-left: $spacing / 2
+    margin-left: math.div($spacing, 2)
