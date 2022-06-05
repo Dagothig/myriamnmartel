@@ -24,11 +24,11 @@ mixin link(href)
 doctype html
 html#top(lang=language)
     head
-        title Catiniata
+        title Myriam Noël-Martel
         meta(http-equiv="Content-Type" content="text/html;charset=UTF-8")
         meta(name="charset" content="UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
-        meta(name="author" content="Catiniata")
+        meta(name="author" content="Myriam Noël-Martel")
         meta(name="description" content=translations["title"])
         link(rel="stylesheet" href="/style.css")
 
@@ -40,7 +40,8 @@ html#top(lang=language)
     body
         h1
             a(href=`/${language !== 'en' ? language : ''}`, tabindex="-1") Catiniata
-            p: +t("title")
+            p.title: +t("title")
+            p.subtitle: +t("subtitle")
         nav
             block nav
             +nav("index", current)
@@ -49,8 +50,7 @@ html#top(lang=language)
                 a(href=`${other !== 'en' ? '/' + other : ''}/${current !== 'index' ? current : ''}`)
                     +t(other)
         block content
-        footer
-            |© 2020 Myriam Noël-Martel
+        footer © #{(new Date()).getFullYear()} Myriam Noël-Martel
             br
             br
             +link(href="https://www.etsy.com/ca-fr/shop/Catiniata", class="brand")

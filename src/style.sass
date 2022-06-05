@@ -37,10 +37,17 @@ h1
     a
         text-decoration: none
         outline: none
+        margin-right: -0.04em
     p
         +font-size($unit)
         font-weight: 200
         margin: 0
+    .title
+        +font-size($unit * 1.69)
+    .subtitle
+        width: 15.92em
+        text-align: right
+        margin: auto
 
 $h2-size: $unit * 2
 h2, summary
@@ -117,13 +124,14 @@ nav
     transform: rotate(-90deg) translate(0%, -50%)
     background: $white
     border-radius: 50%
-    box-shadow: rgba($grey-darkest, 0.3) #{-$spacing/16} 0 $spacing/4
     opacity: 0
-    transition: opacity 0.5s
+    transition: opacity 0.5s, box-shadow 0.3s
     pointer-events: none
     &.show
         opacity: 1
         pointer-events: all
+    &:hover
+        box-shadow: rgba($grey-darkest, 0.3) #{-$spacing/16} 0 $spacing/4
     &:focus
         background: $grey-lightest
 footer
@@ -160,7 +168,6 @@ footer
     position: relative
     padding-bottom: 100%
     transition: 0.3s
-    overflow: hidden
     img
         position: absolute
         top: 0
@@ -176,11 +183,11 @@ a.img-container
     outline: none
 
 a:focus .img-container, a.img-container:focus
-    box-shadow: rgba($grey-darkest, 0.3) 0 $spacing/16 $spacing/4
+    filter: drop-shadow(0 $spacing / 16 $spacing / 4 rgba($grey-darkest, 0.3))
     opacity: 0.8
 
 a:hover .img-container, a.img-container:hover
-    box-shadow: rgba($grey-darkest, 0.3) 0 $spacing/16 $spacing/4
+    filter: drop-shadow(0 $spacing / 16 $spacing / 4 rgba($grey-darkest, 0.3))
     opacity: 0.6
 
 .listing
