@@ -2,37 +2,51 @@ const { parsed: { BASE_URL: base_url, API_KEY: api_key, SHOP: shop } } = require
 const axios = require('axios');
 const fs = require('fs');
 const languages = ['fr', 'en'];
+const otherByLang = {
+    fr: "Autres",
+    en: "Others"
+};
 
 const formatOptions = options =>
     Object.entries(options).map(arr => arr.join('=')).join('&');
 
 const get = async (path, options = {}) => {
     try {
-        return (await axios.get(`${ base_url }/${ path }?${ formatOptions({ ...options, api_key }) }`))
+        return (await axios.get(`${ base_url }/${ path }?${ formatOptions(options) }`, {
+            headers: { "x-api-key": api_key }
+        }))
             .data.results;
     } catch (err) {
         console.error(err);
     }
 };
 
-const getListings = async language =>
-    (await get(`shops/${ shop }/listings/active`, { limit: 1000, includes: 'MainImage', language }))
-    .sort((lhs, rhs) => rhs.creation_tsz - lhs.creation_tsz)
-    .map(listing => ({
-        title: listing.title,
-        url: listing.url,
-        price: listing.price,
-        currency: listing.currency_code,
-        quantity: listing.quantity,
-        section_id: listing.shop_section_id,
-        image: {
-            url: listing.MainImage.url_570xN,
-            full: listing.MainImage.url_fullxfull
-        }
-    }));
+const $shopId = (async () => {
+    const res = await get("shops", { shop_name: shop });
+    return res.find(entry => entry.shop_id).shop_id;
+})();
+
+const getListings = async language => {
+    const active = (await get(`shops/${ await $shopId }/listings/active`, { limit: 100, language }));
+    const withImages = (await get("listings/batch", { listing_ids: active.map(listing => listing.listing_id), includes: "Images" }));
+    return withImages
+        .sort((lhs, rhs) => rhs.creation_timestamp - lhs.creation_timestamp)
+        .map(listing => ({
+            title: listing.title,
+            url: listing.url,
+            price: listing.price.amount / listing.price.divisor,
+            currency: listing.price.currency_code,
+            quantity: listing.quantity,
+            section_id: listing.shop_section_id,
+            image: {
+                url: listing.images[0].url_570xN,
+                full: listing.images[0].url_fullxfull
+            }
+        }));
+};
 
 const getSections = async language =>
-    (await get(`/shops/${ shop }/sections`, { language }))
+    (await get(`shops/${ await $shopId }/sections`, { language }))
     .sort((lhs, rhs) => rhs.rank - lhs.rank)
     .map(section => ({
         id: section.shop_section_id,
@@ -70,6 +84,9 @@ Promise.all(
         const translations = require(`./${language}.json`);
 
         const [sections, listings, catalog] = await Promise.all([$sections, $listings, $catalog]);
+        sections.push({ id: null, title: otherByLang[language] });
+        writeObjToFile(`data-sections-${ language }.json`, sections);
+        writeObjToFile(`data-listings-${ language }.json`, listings);
 
         return writeObjToFile(`data-${language}.json`, {
             language,

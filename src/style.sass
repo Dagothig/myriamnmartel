@@ -65,15 +65,23 @@ h3
 
 a
     color: $grey-darkest
+    img
+        height: 100%
 
 footer
     margin: $spacing * 1.5 0
     text-align: center
+    .brand
+        width: $unit * 1.5
+        height: $unit * 1.5
 
-.brand img
+.brands
+    display: inline-flex
+    vertical-align: middle
+
+.brand
+    display: inline-block
     padding: 0 math.div($spacing, 4)
-    width: $unit * 1.5
-    height: $unit * 1.5
 
 span.right
     float: right
@@ -81,7 +89,7 @@ span.right
 // === Navigation === //
 
 nav
-    margin: math.div($spacing, 2) (-1 * math.div($spacing, 2))
+    margin: math.div($spacing, 2) 0
     text-align: right
     a
         font-weight: 500
@@ -91,6 +99,7 @@ nav
         transition: color 0.3s
         padding: math.div($spacing, 2)
         display: inline-block
+        vertical-align: middle
         &:focus
             color: mix($grey-light, $grey-dark, 50%)
             text-decoration: underline
@@ -101,6 +110,9 @@ nav
             margin-left: 0
         &.active
             color: $grey-darkest
+
+    .brand
+        height: 1.2em
 
 @media (max-width: 576px)
     nav

@@ -49,6 +49,13 @@ html#top(lang=language)
             each other in languages.filter(other => other !== language)
                 a(href=`${other !== 'en' ? '/' + other : ''}/${current !== 'index' ? current : ''}`)
                     +t(other)
+            .brands
+                +link(href="https://www.etsy.com/ca-fr/shop/Catiniata", class="brand")
+                    img(src="/svg/etsy-brands.svg", alt="Esty")
+                +link(href="https://www.instagram.com/catiniata", class="brand")
+                    img(src="/svg/instagram-brands.svg", alt="Instagram")
+                +link(href="https://www.facebook.com/catiniata", class="brand")
+                    img(src="/svg/facebook-f-brands.svg", alt="Facebook")
         block content
         footer © #{(new Date()).getFullYear()} Myriam Noël-Martel
             br
