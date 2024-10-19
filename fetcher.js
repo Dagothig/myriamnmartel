@@ -2,9 +2,17 @@ const { parsed: { BASE_URL: base_url, API_KEY: api_key, SHOP: shop } } = require
 const axios = require('axios');
 const fs = require('fs');
 const languages = ['fr', 'en'];
-const otherByLang = {
-    fr: "Autres",
-    en: "Others"
+const otherTitle = "Others";
+const sectionsByLang = {
+    fr: {
+        "books": "Livres",
+        "fabrics": "Tissus",
+        "risograph prints": "Tirages risographiques",
+        "stickers": "Autocollants",
+        "linocut prints": "Tirages en linogravure",
+        "pins": "Broches",
+        "others": "Autres"
+    }
 };
 
 const formatOptions = options =>
@@ -84,7 +92,7 @@ Promise.all(
         const translations = require(`./${language}.json`);
 
         const [sections, listings, catalog] = await Promise.all([$sections, $listings, $catalog]);
-        sections.push({ id: null, title: otherByLang[language] });
+        sections.push({ id: null, title: otherTitle });
         writeObjToFile(`data-sections-${ language }.json`, sections);
         writeObjToFile(`data-listings-${ language }.json`, listings);
 
@@ -94,7 +102,7 @@ Promise.all(
             listings: sections
                 .map(section => ({
                     id: section.id,
-                    title: section.title,
+                    title: (sectionsByLang[language] || {})[section.title.toLowerCase()] || section.title,
                     listings: listings.filter(listing => listing.section_id === section.id)
                 }))
                 .filter(section => section.listings.length),

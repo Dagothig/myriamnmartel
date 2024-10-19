@@ -8,7 +8,7 @@ mixin space()
 mixin nav(nav, current)
     a(
         class=nav === current ? 'active' : undefined
-        href=`${language !== 'en' ? '/' + language : ''}/${nav !== 'index' ? nav : ''}`
+        href=`${language !== 'fr' ? '/' + language : ''}/${nav !== 'index' ? nav : ''}`
     ): +t(nav)
 
 mixin lang(lang, current)
@@ -39,7 +39,7 @@ html#top(lang=language)
         block head
     body
         h1
-            a(href=`/${language !== 'en' ? language : ''}`, tabindex="-1") Catiniata
+            a(href=`/${language !== 'fr' ? language : ''}`, tabindex="-1") Catiniata
             p.title: +t("title")
             p.subtitle: +t("subtitle")
         nav
@@ -47,7 +47,7 @@ html#top(lang=language)
             +nav("index", current)
             +nav("shop", current)
             each other in languages.filter(other => other !== language)
-                a(href=`${other !== 'en' ? '/' + other : ''}/${current !== 'index' ? current : ''}`)
+                a(href=`${other !== 'fr' ? '/' + other : ''}/${current !== 'index' ? current : ''}`)
                     +t(other)
             .brands
                 +link(href="https://www.etsy.com/ca-fr/shop/Catiniata", class="brand")

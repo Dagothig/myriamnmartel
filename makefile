@@ -14,8 +14,8 @@ data: node img favicons
 
 .PHONY: html
 html: node data clean-html
-	@node node_modules/pug-cli -O data-fr.json src/ -b src/ -o public/fr
-	@node node_modules/pug-cli -O data-en.json src/ -b src/ -o public/
+	@node node_modules/pug-cli -O data-fr.json src/ -b src/ -o public/
+	@node node_modules/pug-cli -O data-en.json src/ -b src/ -o public/en
 
 .PHONY: css
 css: node clean-css

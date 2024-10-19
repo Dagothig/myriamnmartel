@@ -8,9 +8,9 @@ block nav
 
 block content
     each section in listings
-        input.collapse-value(id=section.id, type="checkbox")
+        input.collapse-value(id=section.id || "other", type="checkbox")
         h2.collapse-control
-            label(for=section.id)=section.title
+            label(for=section.id || "other")=section.title
         .grid.collapse-target: each item in section.listings
             +link(href=item.url, class="listing item")
                 .img-container.dark
