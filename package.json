@@ -6,7 +6,7 @@
   "author": "Dagothig <guillaumenoelmartel@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "browser-sync": "^2.26.7",
     "dotenv": "^8.2.0",
     "sass": "^1.52.2",
