@@ -1,6 +1,6 @@
 #!make
 include .env
-FAVICON_SIZES=32 128 152 167 180 192 196
+FAVICON_SIZES=32 128 152 167 180 192 196 256
 
 build: html css
 
