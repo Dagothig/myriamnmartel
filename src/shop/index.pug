@@ -3,6 +3,9 @@ extends /layout.pug
 mixin amt(amt, curr)
     = curr === 'CAD' ? `${amt} CA$` : `${amt} ${curr}`
 
+block head
+    - const title = translations.shop
+
 block nav
     - const current = "shop"
 

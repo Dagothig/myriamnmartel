@@ -58,8 +58,9 @@ favicons: $(favicons)
 
 .PHONY: serve
 serve: build
-	@(node node_modules/pug-cli -w -O data-en.json src/ -b src/ -o public/ &\
-	  node node_modules/sass/sass.js src/:public/ &\
+	@(node node_modules/pug-cli -w -O data-fr.json src/ -b src/ -o public/ &\
+	  node node_modules/pug-cli -w -O data-en.json src/ -b src/ -o public/en &\
+	  node node_modules/sass/sass.js -w src/:public/ &\
 	  node server)
 
 .PHONY: clean-html

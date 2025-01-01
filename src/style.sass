@@ -81,7 +81,7 @@ footer
 
 .brand
     display: inline-block
-    padding: 0 math.div($spacing, 4)
+    padding: math.div($spacing, 4)
 
 span.right
     float: right
@@ -114,7 +114,7 @@ nav
     .brand
         height: 1.2em
 
-@media (max-width: 576px)
+@media (max-width: 570px)
     nav
         text-align: center
     h2
@@ -166,7 +166,7 @@ footer
 .grid
     display: grid
     grid-template-columns: repeat(auto-fill, minmax(285px, 1fr))
-    grid-gap: $spacing
+    gap: $spacing
 
 @media (max-width: 570px) and (max-aspect-ratio: 1/1)
     .grid
@@ -227,6 +227,7 @@ a:hover .img-container, a.img-container:hover
         right: 0
         bottom: 0
         z-index: 10
+        line-height: 0.9
         background: $white
         &, a
             color: $grey-darkest

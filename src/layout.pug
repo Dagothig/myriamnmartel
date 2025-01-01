@@ -1,6 +1,11 @@
+-
+    function t(key) {
+        const fixed = { en: 'English', fr: 'Français' };
+        return translations[key] || fixed[key] || `t:${key}`
+    }
+
 mixin t(key)
-    - const fixed = { en: 'English', fr: 'Français' };
-    =translations[key] || fixed[key] || `t:${key}`
+    =t(key)
 
 mixin space()
   | !{' '}
@@ -24,19 +29,30 @@ mixin link(href)
 doctype html
 html#top(lang=language)
     head
-        title Myriam Noël-Martel
+        block head
+
+        title=`${ title } - ${ t("meta.title") }`
         meta(http-equiv="Content-Type" content="text/html;charset=UTF-8")
         meta(name="charset" content="UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
-        meta(name="author" content="Myriam Noël-Martel")
-        meta(name="description" content=translations["title"])
+        meta(name="author" content=t("meta.author"))
+        meta(name="description" content=t("meta.description"))
+
+        meta(property="og:title" content=`${ title } - ${ t("meta.title") }`)
+        meta(property="og:type" content="website")
+        meta(property="og:description" content=t("meta.description"))
+        meta(property="og:site_name" content=t("meta.title"))
+        meta(property="og:url" content="https://catiniata.art/")
+        meta(property="og:image" content="https://catiniata.art/favicon-196.png")
+        meta(property="og:image:alt" content=t("meta.title"))
+        meta(name="twitter:card" content="summary_large_image")
+        meta(name="twitter:image:alt" content=t("meta.title"))
+
         link(rel="stylesheet" href="/style.css")
 
         each favicon in favicons
             - const size = favicon.split('-')[1].split('.')[0]
             link(rel="icon" href=`/${favicon}` sizes=`${size}x${size}`)
-
-        block head
     body
         h1
             a(href=`/${language !== 'fr' ? language : ''}`, tabindex="-1") Catiniata

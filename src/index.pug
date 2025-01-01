@@ -13,6 +13,7 @@ block head
             ArrowRight: actionFor('right')
         };
         document.addEventListener('keydown', e => actions[e.key] && actions[e.key]());
+    - const title = translations.index
 
 block nav
     - const current = "index"
